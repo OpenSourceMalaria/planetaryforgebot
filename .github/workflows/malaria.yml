@@ -2,6 +2,12 @@ name: Planetary Forge (Malaria) twitter bot
 on:
   schedule:
     - cron: '0 * * * *'
+  workflow_dispatch:
+    inputs:
+      name:
+        description: 'Sheet to run'
+        required: false
+        default: 'malaria'
 
 jobs:
   build:
