@@ -40,4 +40,4 @@ jobs:
           
       - name: tweet
         run: |
-          pipenv run post.py
+          pipenv run python post.py
