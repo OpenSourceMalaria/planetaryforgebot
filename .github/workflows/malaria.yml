@@ -1,7 +1,7 @@
 name: Planetary Forge (Malaria) twitter bot
 on:
   schedule:
-    - cron: '0 * * * *'
+    - cron: '0 9 * * *' # TODO: check this schedule is correct
   workflow_dispatch:
     inputs:
       name:
@@ -12,6 +12,7 @@ on:
 jobs:
   build:
     runs-on: ubuntu-latest
+    timeout-minutes: 5
 
     steps:
       - uses: actions/checkout@v2
@@ -26,6 +27,7 @@ jobs:
           python -m pip install --upgrade pipenv wheel
 
       - id: cache-pipenv
+        name: Fetch dependencies from cache
         uses: actions/cache@v2
         with:
           path: ~/.local/share/virtualenvs
@@ -37,6 +39,13 @@ jobs:
         if: steps.cache-pipenv.outputs.cache-hit != 'true'
         run: |
           pipenv install
+
+      - name: Inject secrets
+        env:
+          CONSUMER_KEY: ${{ secrets.CONSUMER_KEY }}
+          CONSUMER_SECRET: ${{ secrets.CONSUMER_SECRET }}
+          ACCESS_TOKEN: ${{ secrets.ACCESS_TOKEN }}
+          ACCESS_TOKEN_SECRET: ${{ secrets.ACCESS_TOKEN_SECRET }}
           
       - name: tweet
         run: |

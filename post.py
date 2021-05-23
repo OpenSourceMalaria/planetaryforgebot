@@ -1,7 +1,8 @@
 from os import environ
-import tweepy
-import requests
+
 from PIL import Image
+import requests
+import tweepy
 
 import sheets
 
@@ -16,7 +17,7 @@ auth.set_access_token(ACCESS_TOKEN, ACCESS_TOKEN_SECRET)
 api = tweepy.API(auth)
 
 
-def update_status(text: str, media_id: int):
+def update_status(text: str, media_id: int) -> dict:
     """Posts an update to the Twitter account with attached molecule."""
     response = api.update_status(status=text, media_ids=[media_id])
     return response
@@ -49,8 +50,8 @@ def build_status(molecule: dict) -> str:
     SMILES: {molecule.get('smiles')}
     InChiKey: {molecule.get('inchikey')}
     """
-    link = molecule.get('link')
-    hashtags = molecule.get('hashtags')
+    link = molecule.get("link")
+    hashtags = molecule.get("hashtags")
 
     if link != None:
         tweet += "Info: {link} "
@@ -60,16 +61,18 @@ def build_status(molecule: dict) -> str:
     return tweet
 
 
-def main(sheet: str = 'malaria'):
+def main(sheet: str = "malaria"):
+    """Posts a tweet with a randomly selected molecule."""
     molecule = sheets.choose_molecule(sheet)
-    smiles_string = molecule.get('smiles')
+    smiles_string = molecule.get("smiles")
     if smiles_string == None:
-        return # fail early if we can't find a SMILES string
+        return  # fail early if we can't find a SMILES string
     filename = "tmp.gif"
     download_image(smiles_string, filename)
     new_filename = convert_image(filename)
     media_id = upload_file(new_filename)
     text = build_status(molecule)
     update_status(text, media_id)
+
 
 main()
