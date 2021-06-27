@@ -46,4 +46,4 @@ jobs:
           ACCESS_TOKEN_SECRET: ${{ secrets.ACCESS_TOKEN_SECRET }}
         shell: bash
         run: |
-          python post.py
+          conda activate pftbot && python post.py
