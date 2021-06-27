@@ -20,7 +20,7 @@ jobs:
       - name: Cache conda
         uses: actions/cache@v2
         env:
-          CACHE_NUMBER: 0 # increase to invalidate cache
+          CACHE_NUMBER: 1 # increase to invalidate cache
         with:
           path: ~/conda_pkgs_dir
           key:
@@ -32,6 +32,11 @@ jobs:
         with:
           activate-environment: pfbot
           use-only-tar-bz2: true
+
+      - name: Install dependencies
+        run: |
+          # $CONDA is an environment variable pointing to the root of the miniconda directory
+          $CONDA/bin/conda env update --file environment.yml
 
       - name: Tweet
         env:
