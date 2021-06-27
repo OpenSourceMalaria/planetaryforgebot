@@ -33,10 +33,10 @@ jobs:
           activate-environment: pfbot
           use-only-tar-bz2: true
 
-      # - name: Install dependencies
-      #   run: |
-      #     # $CONDA is an environment variable pointing to the root of the miniconda directory
-      #     $CONDA/bin/conda env update --file environment.yml
+      - name: Install dependencies
+        run: |
+          # $CONDA is an environment variable pointing to the root of the miniconda directory
+          $CONDA/bin/conda env update --file environment.yml
 
       - name: Tweet
         env:
