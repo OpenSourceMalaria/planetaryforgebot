@@ -20,7 +20,7 @@ jobs:
       - name: Cache conda
         uses: actions/cache@v2
         env:
-          CACHE_NUMBER: 1 # increase to invalidate cache
+          CACHE_NUMBER: 2 # increase to invalidate cache
         with:
           path: ~/conda_pkgs_dir
           key:
@@ -33,10 +33,10 @@ jobs:
           activate-environment: pfbot
           use-only-tar-bz2: true
 
-      - name: Install dependencies
-        run: |
-          # $CONDA is an environment variable pointing to the root of the miniconda directory
-          $CONDA/bin/conda env update --file environment.yml
+      # - name: Install dependencies
+      #   run: |
+      #     # $CONDA is an environment variable pointing to the root of the miniconda directory
+      #     $CONDA/bin/conda env update --file environment.yml
 
       - name: Tweet
         env:
@@ -45,4 +45,4 @@ jobs:
           ACCESS_TOKEN: ${{ secrets.ACCESS_TOKEN }}
           ACCESS_TOKEN_SECRET: ${{ secrets.ACCESS_TOKEN_SECRET }}
         run: |
-          conda activate pfbot && python post.py
+          python post.py
