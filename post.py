@@ -1,7 +1,6 @@
 from os import environ
 
 from jinja2 import Environment, select_autoescape, FileSystemLoader
-from PIL import Image
 import requests
 import tweepy
 
