@@ -6,4 +6,5 @@ dependencies:
   - tweepy
   - rdkit
   - requests
+  - jinja2
 prefix: /Users/mike/miniconda3/envs/pfbot
