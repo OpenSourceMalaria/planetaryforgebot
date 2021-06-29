@@ -4,7 +4,7 @@ from jinja2 import Environment, select_autoescape, FileSystemLoader
 import requests
 import tweepy
 
-from render import generate_image
+from render import generate_image, generate_properties
 import sheets
 
 CONSUMER_KEY = environ["CONSUMER_KEY"]
@@ -33,6 +33,7 @@ def upload_file(filename: str) -> int:
 def build_status(molecule: dict, template: str) -> str:
     """Builds the tweet string based on the Jinja template."""
     template = env.get_template(template)
+    molecule["properties"] = generate_properties(molecule.get("smiles"))
     tweet = template.render(**molecule)
     return tweet
 
