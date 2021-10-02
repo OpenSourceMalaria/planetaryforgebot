@@ -7,4 +7,5 @@ dependencies:
   - rdkit
   - requests
   - jinja2
+  - google-api-python-client
 prefix: /Users/mike/miniconda3/envs/pfbot
