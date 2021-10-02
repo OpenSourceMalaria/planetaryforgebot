@@ -44,6 +44,7 @@ jobs:
           CONSUMER_SECRET: ${{ secrets.CONSUMER_SECRET }}
           ACCESS_TOKEN: ${{ secrets.ACCESS_TOKEN }}
           ACCESS_TOKEN_SECRET: ${{ secrets.ACCESS_TOKEN_SECRET }}
+          SHEETS_API_KEY: ${{ secrets.SHEETS_API_KEY }}
         shell: bash -l {0}
         run: |
           conda activate pfbot && python post.py
